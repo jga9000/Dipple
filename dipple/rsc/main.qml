@@ -1,6 +1,6 @@
 //![0]
-import QtQuick 1.0
-import com.box2d.release 2.0 as Box2D
+import QtQuick 2.0
+import com.box2d.release 1.0 as Box2D
 import "game.js" as Game
 
 Rectangle {
@@ -50,6 +50,7 @@ Rectangle {
         width: 5
         height: 1000
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
     }
     Box2D.Body {
         id: rectangle2
@@ -58,6 +59,7 @@ Rectangle {
         width: 5
         height: 1000
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
     }
     Box2D.Body {
         id: rectangle3
@@ -66,6 +68,7 @@ Rectangle {
         width: 350
         height: 5
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
     }
     Box2D.Body {
         id: rectangle4
@@ -74,6 +77,7 @@ Rectangle {
         width: 350
         height: 110
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
     }
 
 // Static basket
@@ -85,6 +89,7 @@ Rectangle {
         width: 8
         height: 80
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
         /*Rectangle {
             anchors.fill: parent
             color: "red"
@@ -100,6 +105,7 @@ Rectangle {
         width: 8
         height: 80
         bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
         /*Rectangle {
             anchors.fill: parent
             color: "red"
@@ -108,7 +114,22 @@ Rectangle {
             smooth: true
         }*/
     }
-
+    /*Box2D.Body {
+        id: rectangle112
+        x: 192
+        width: 85
+        y: 200
+        height: 20
+        bodyType: Box2D.Body.Static
+        fixtures: Box2D.Box { anchors.fill: parent }
+        Rectangle {
+            anchors.fill: parent
+            color: "blue"
+            border.color: "white"
+            border.width: 1
+            smooth: true
+        }
+    }*/
     /*Box2D.Body {
         id: rectangle12
         x: 200
@@ -175,6 +196,7 @@ Rectangle {
         x: 90
         y: -120
     }
+
 // Basket net
     Image {
         x: 190
@@ -202,8 +224,6 @@ Rectangle {
         aim.newy = gameData.getAimY();
         aim.newangle = gameData.getAngle();
         aim.newheight = gameData.getSpeed();
-        aim.shotimagex = gameData.getOldBallX();
-        aim.shotimagey = gameData.getOldBallY();
     }
 
     Image {

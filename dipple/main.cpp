@@ -1,40 +1,26 @@
-#include <QtGui/QApplication>
-#include <QtDeclarative/QDeclarativeView>
-#include <QtDeclarative/QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QDebug>
+#include <QGuiApplication>
+#include <QQmlEngine>
+#include <QQuickView>
+#include <QQmlContext>
 #include "game.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    qDebug() << "Application main";
-    QApplication app(argc, argv);
-    QDeclarativeView canvas;
+    QGuiApplication app(argc,argv);
+    QQuickView view;
 
     GameData *game = new GameData();
+    view.engine()->rootContext()->setContextObject(game);
+    view.engine()->rootContext()->setContextProperty("gameData", game);
 
-#ifdef Q_OS_SYMBIAN
-    canvas.setResizeMode(QDeclarativeView::SizeRootObjectToView);
-#endif
-
-    canvas.setAttribute(Qt::WA_LockPortraitOrientation, true);
-
-    canvas.engine()->rootContext()->setContextObject(game);
-    //canvas.engine()->addImportPath("qrc:/"");
-    canvas.rootContext()->setContextProperty("gameData", game);
-
-    canvas.setSource(QUrl::fromLocalFile(QString("rsc/main.qml")));
-    QObject::connect(canvas.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-
-    qDebug() << "main.qml executed";
-
-#ifdef Q_OS_SYMBIAN
-    canvas.showFullScreen();
-#else
-    canvas.setGeometry(QRect(0, 0, 360, 640));
-    canvas.show();
-#endif
-    qDebug() << "canvas show";
-
+    view.connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+    view.setSource(QUrl::fromLocalFile(QString("rsc/main.qml")));
+    if (QGuiApplication::platformName() == QLatin1String("qnx") ||
+          QGuiApplication::platformName() == QLatin1String("eglfs")) {
+        view.setResizeMode(QQuickView::SizeRootObjectToView);
+        view.showFullScreen();
+    } else {
+        view.show();
+    }
     return app.exec();
 }

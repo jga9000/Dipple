@@ -1,9 +1,14 @@
-#include <QtGui/QApplication>
-#include <QtDeclarative/QDeclarativeView>
-#include <QtDeclarative/QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeEngine>
+#include <QCoreApplication>
+#include <QDir>
+#include <QFileInfo>
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <QQmlContext>
 #include <QDebug>
+
 #include <QtCore/qmath.h>
+#include <QPoint>
+#include <QCursor>
 #include "game.h"
 
 GameData::GameData() {
